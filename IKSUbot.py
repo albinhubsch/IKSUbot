@@ -68,7 +68,7 @@ if __name__ == '__main__':
 			for user in User.select():
 				print ' '+str(user.id)+' | '+str(user.email)
 
-			uid = raw_input(' Select the user you want to remove: ')
+			uid = raw_input('\n Select the user you want to remove: ')
 
 			# delete the users subscriptions
 			query = UserSubscription.delete().where(UserSubscription.user == uid)
@@ -108,7 +108,7 @@ if __name__ == '__main__':
 			for sub in Subscription.select():
 				print ' '+str(sub.id)+' | '+str(sub.traningstyp)+' | '+str(sub.plats)+' | '+str(sub.instruktor)+' | '+str(sub.dag)+' | '+str(sub.start_tid) + '-' + str(sub.slut_tid)
 
-			sid = raw_input(' Select the subscription you want to remove: ')
+			sid = raw_input('\n Select the subscription you want to remove: ')
 
 			# delete the users subscriptions
 			query = UserSubscription.delete().where(UserSubscription.subscription == sid)
@@ -124,12 +124,12 @@ if __name__ == '__main__':
 			for sub in Subscription.select():
 				print ' '+str(sub.id)+' | '+str(sub.traningstyp)+' | '+str(sub.plats)+' | '+str(sub.instruktor)+' | '+str(sub.dag)+' | '+str(sub.start_tid) + '-' + str(sub.slut_tid)
 
-			sid = raw_input(' Select the subscription you want to connect: ')
+			sid = raw_input('\n Select the subscription you want to connect: ')
 
 			for user in User.select():
 				print ' '+str(user.id)+' | '+str(user.email)
 
-			uid = raw_input(' Select the user you want to connect to this subscription: ')
+			uid = raw_input('\n Select the user you want to connect to this subscription: ')
 
 			us = UserSubscription(user=int(uid), subscription=int(sid))
 			us.save()

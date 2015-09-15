@@ -35,6 +35,3 @@ RelationModel between users and subscriptions
 class UserSubscription(BaseModel):
 	user = ForeignKeyField(User)
 	subscription = ForeignKeyField(Subscription)
-
-
-
