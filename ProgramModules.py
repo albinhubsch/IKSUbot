@@ -242,7 +242,7 @@ class Mail:
 									<p style="font-family: sans-serif; font-size: 18px; color: #666;">next """+days[int(self.subscription.dag)-1]+"""</p>
 								</td>
 								<td align="center" style="padding: 15px 15px 15px 15px; background: #efefef; line-height: 0;">
-									<p style="font-family: sans-serif; font-size: 18px; color: #666;">"""+str(self.subscription.tid)+"""</p>
+									<p style="font-family: sans-serif; font-size: 18px; color: #666;">"""+str(self.subscription.start_tid)+"""</p>
 								</td>
 							</tr>
 						</table>
