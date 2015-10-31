@@ -23,7 +23,8 @@ The iksubot requires you to install a crontab for the bot in order to work. It i
 	sudo crontab -e
 ```
 	
-	In the crontab, add this line at the end of teh file. Write out and exit.
+In the crontab, add this line at the end of teh file. Write out and exit.
+
 ```
 	#IKSUbot RUN EVERY MIDNIGHT
 	0 0 * * * /usr/bin/python dir-to-directory/cron-iksubot.py
