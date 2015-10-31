@@ -23,7 +23,7 @@ The iksubot requires you to install a crontab for the bot in order to work. It i
 	sudo crontab -e
 ```
 	
-In the crontab, add this line at the end of teh file. Write out and exit.
+In the crontab, add this line at the end of the file. Write out and exit.
 
 ```
 	#IKSUbot RUN EVERY MIDNIGHT
@@ -46,7 +46,7 @@ You can find all data by investigating the iksu booking website URL or html sour
  - [IKSU bokning](http://bokning.iksu.se)
 
 ##Contribute
-Please feel free to contribute to this project just make sure you try to follow doing conventions.
+Please feel free to contribute to this project. Just make sure you try to follow the coding conventions.
 
 ##To Do
 This program is in a very early beta. It does work in current state but it might be a bit unstable an maybe crash sometimes. I'll do my best to continue the development of this. If you want to contribute please read the contribute section.
