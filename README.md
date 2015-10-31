@@ -19,15 +19,15 @@ These packages might need other additional packages depending on you system. In 
 
 The iksubot requires you to install a crontab for the bot in order to work. It is the cron-iksubot.py file that should be linked in your crontab. Set the crontab to run every midnight. You can reach your crontab by typing
 
-´´´
+```
 	sudo crontab -e
-´´´
+```
 	
 	In the crontab, add this line at the end of teh file. Write out and exit.
-´´´
+```
 	#IKSUbot RUN EVERY MIDNIGHT
 	0 0 * * * /usr/bin/python dir-to-directory/cron-iksubot.py
-´´´
+```
 
 To add a user and a subscription to the bot run the IKSUbot.py. When adding a new user type in email and password in clear text. To add a subscription you have to follow some conventions.
 
