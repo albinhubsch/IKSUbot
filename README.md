@@ -58,3 +58,6 @@ Things to do
  - Add the ability to delete connections between subscriptions and users.
  - A better mail system
  - Kill bugs
+
+##Keywords
+> Iksu script automatisk bokning
