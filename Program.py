@@ -73,7 +73,10 @@ class Program:
 					logging.info('Booking class for user: ' + str(user.email))
 
 					# Sign in and book class
-					email_list.append(iksu.bookClass(classId, user, subscription))
+					try:
+						email_list.append(iksu.bookClass(classId, user, subscription))
+					except Exception, e:
+						logging.error('Something went wrong when trying to book class for user: '+ user.email +' - ' + str(e))
 					
 				# Send booking emails to all subscribers
 				mail = Mail(email_list, subscription)

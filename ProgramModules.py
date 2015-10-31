@@ -206,7 +206,7 @@ class Mail:
 		msg = MIMEMultipart('alternative')
 		msg['To'] = ', '.join(self.receivers)
 		msg['From'] = addr_from
-		msg['Subject'] = 'IKSUbot Confirmation, please verify!'
+		msg['Subject'] = 'IKSUbot class booked, please verify!'
 		 
 		# Create the body of the message (a plain-text and an HTML version).
 		text = "You have been automatically singed up on a class at IKSU."
