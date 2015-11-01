@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Iksubot by albinhubsch</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Iksubot</h1>
+        <p>Schedule and automate your class booking at IKSU.</p>
+
+        <p class="view"><a href="https://github.com/albinhubsch/IKSUbot">View the Project on GitHub <small>albinhubsch/IKSUbot</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/albinhubsch/IKSUbot/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/albinhubsch/IKSUbot/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/albinhubsch/IKSUbot">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="iksubot" class="anchor" href="#iksubot" aria-hidden="true"><span class="octicon octicon-link"></span></a>IKSUbot</h1>
+
+<p>The IKSUbot is a robot that automates class booking at the IKSU training center. It can be really hard to get a spot at popular classes like Indoor Walking or Total Training. This robot solves this by automatically sign you in and book the desired class as soon as they are released and open for booking. It can't guarantee a place but the probability of every spot being taken at the exact moment of release is very low.</p>
+
+<p>The bot can in theory handle unlimited number of users and class subscriptions but the more you have the longer time you need and other bot might steal seats. The IKSU server is quite slow, expect around 3-5 seconds per user and class booking.</p>
+
+<h2>
+<a id="how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span class="octicon octicon-link"></span></a>How it works</h2>
+
+<p>The bot is very simple. It consists of two main parts. One cron worker that runs every midnight. This cron worker uses the IKSU web interface to sign in the users and book them at classes. The other part is the admin interface. This is where you can add users to the bot and add classes that the users want to subscribe to.</p>
+
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<p>First, you need a computer that can be running 24h 7days a week. A raspberry pi is perfect for this kind of work. The program is written in python 2.7 and you need to install the following additional python packages.</p>
+
+<ul>
+<li>peewee</li>
+<li>sqlite3</li>
+<li>requests</li>
+<li>BeautifulSoup</li>
+<li>python-dateutil</li>
+</ul>
+
+<p>These packages might need other additional packages depending on you system. In case just do a test run of the programs and python will tell you what is missing.</p>
+
+<p>The iksubot requires you to install a crontab for the bot in order to work. It is the cron-iksubot.py file that should be linked in your crontab. Set the crontab to run every midnight. You can reach your crontab by typing</p>
+
+<pre><code>    sudo crontab -e
+</code></pre>
+
+<p>In the crontab, add this line at the end of the file. Write out and exit.</p>
+
+<pre><code>    #IKSUbot RUN EVERY MIDNIGHT
+    0 0 * * * /usr/bin/python dir-to-directory/cron-iksubot.py
+</code></pre>
+
+<p>To add a user and a subscription to the bot run the IKSUbot.py. When adding a new user type in email and password in clear text. To add a subscription you have to follow some conventions.</p>
+
+<ul>
+<li>träningstyp : The training type id (e.g "IW55") can be found by inspecting the IKSU website</li>
+<li>instruktör : The instructor system id (e.g "MIJO") can be found by inspecting the IKSU website</li>
+<li>plats : The place id (e.g "100" for iksu sport) can be found by inspecting the IKSU website</li>
+<li>dag : The day in number 1-7 (e.g "2" for tuesday)</li>
+<li>starttid: A time with ":" (e.g "18:00")</li>
+<li>sluttid: A time with ":" (e.g "18:00")</li>
+</ul>
+
+<p>You can find all data by investigating the iksu booking website URL or html source. Just search for the class and watch the url.</p>
+
+<h2>
+<a id="sources" class="anchor" href="#sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources</h2>
+
+<ul>
+<li><a href="http://bokning.iksu.se">IKSU bokning</a></li>
+</ul>
+
+<h2>
+<a id="contribute" class="anchor" href="#contribute" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contribute</h2>
+
+<p>Please feel free to contribute to this project. Just make sure you try to follow the coding conventions.</p>
+
+<h2>
+<a id="to-do" class="anchor" href="#to-do" aria-hidden="true"><span class="octicon octicon-link"></span></a>To Do</h2>
+
+<p>This program is in a very early beta. It does work in current state but it might be a bit unstable an maybe crash sometimes. I'll do my best to continue the development of this. If you want to contribute please read the contribute section.</p>
+
+<p>Things to do</p>
+
+<ul>
+<li>Add an installer (some files is not included in the git repo due to sensitive data. These files should be created on install)</li>
+<li>Create a better user flow and menu system in the Admin interface</li>
+<li>Add the ability to delete connections between subscriptions and users.</li>
+<li>A better mail system</li>
+<li>Kill bugs</li>
+</ul>
+
+<h2>
+<a id="keywords" class="anchor" href="#keywords" aria-hidden="true"><span class="octicon octicon-link"></span></a>Keywords</h2>
+
+<blockquote>
+<p>Iksu script automatisk bokning</p>
+</blockquote>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/albinhubsch">albinhubsch</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-27195757-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
