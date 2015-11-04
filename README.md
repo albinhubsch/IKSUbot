@@ -58,7 +58,8 @@ Things to do
  - Add the ability to delete connections between subscriptions and users.
  - A better mail system
  - Kill bugs
- - Currently not very fast when multiple subscriptions at the same week day. Mail function needs to be moved.
+ - Currently not very fast when multiple subscriptions at the same week day.
+ - Mail function needs to be moved.
 
 ##Keywords
 > Iksu script automatisk bokning
