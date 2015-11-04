@@ -70,6 +70,7 @@ class IKSU:
 
 		url = 'https://bokning.iksu.se/index.php'
 
+		# Payload structure
 		# payload = {'fromDate': '2015-09-11', 'thruDate': '2015-09-18', 'fromTime':'06:00', 'thruTime':'23:00', 'daysOfWeek[]':'2', 'locations[]':'100', 'obj_classes[g_iw]':'X', 'objects[]':'IW55', 'instructors[]':'CAHO', 'func':'fres', 'search':'T', 'btn_submit':'x'}
 
 		now = datetime.datetime.now()
@@ -191,7 +192,7 @@ class Mail:
 	'''
 	def sendConfirmationEmail(self):
 
-		days = ['MÅNDAG', 'TISDAG', 'ONSDAG', 'TORSDAG', 'FREDAG', 'LÖRDAG', 'SÖNDAG']
+		days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
 		
 		# Define email addresses to use
 		addr_to   = self.receivers
@@ -206,7 +207,7 @@ class Mail:
 		msg = MIMEMultipart('alternative')
 		msg['To'] = ', '.join(self.receivers)
 		msg['From'] = addr_from
-		msg['Subject'] = 'IKSUbot class booked, please verify!'
+		msg['Subject'] = 'IKSUbot booked a class, please verify!'
 		 
 		# Create the body of the message (a plain-text and an HTML version).
 		text = "You have been automatically singed up on a class at IKSU."
@@ -214,10 +215,10 @@ class Mail:
 		<html lang="en">
 		<head>
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-			<title>IKSUbot Confirmation</title>
+			<title>IKSUbot booking</title>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		</head>
-		<body style="margin: 0 0 0 0; padding: 10px 10px 10px 10px; background: #ddd;">
+		<body style="margin: 0 0 0 0; padding: 0px 0px 0px 0px; background: #fff;">
 			<table border="0" cellpadding="0" cellspacing="0" width="100%" style="background: #fff; border-radius: 2px;">
 				<tr>
 					<td style="padding: 15px 15px 15px 15px;">
@@ -232,17 +233,17 @@ class Mail:
 					<td style="padding: 15px 15px 15px 15px;">
 						<table width="100%" border="0" cellpadding="0" cellspacing="1">
 							<tr>
-								<td align="center" style="padding: 15px 15px 15px 15px; background: #efefef; line-height: 0;">
-									<p style="font-family: sans-serif; font-size: 18px; color: #666;">"""+str(self.subscription.traningstyp)+"""</p>
+								<td align="center" style="padding: 15px 15px 15px 15px; background: #ff6600; line-height: 0;">
+									<p style="font-family: sans-serif; font-size: 18px; color: #fff;">"""+str(self.subscription.traningstyp)+"""</p>
 								</td>
-								<td align="center" style="padding: 15px 15px 15px 15px; background: #efefef; line-height: 0;">
-									<p style="font-family: sans-serif; font-size: 18px; color: #666;">"""+str(self.subscription.instruktor)+"""</p>
+								<td align="center" style="padding: 15px 15px 15px 15px; background: #ff6600; line-height: 0;">
+									<p style="font-family: sans-serif; font-size: 18px; color: #fff;">"""+str(self.subscription.instruktor)+"""</p>
 								</td>
-								<td align="center" style="padding: 15px 15px 15px 15px; background: #efefef; line-height: 0;">
-									<p style="font-family: sans-serif; font-size: 18px; color: #666;">next """+days[int(self.subscription.dag)-1]+"""</p>
+								<td align="center" style="padding: 15px 15px 15px 15px; background: #ff6600; line-height: 0;">
+									<p style="font-family: sans-serif; font-size: 18px; color: #fff;">next<br>"""+days[int(self.subscription.dag)-1]+"""</p>
 								</td>
-								<td align="center" style="padding: 15px 15px 15px 15px; background: #efefef; line-height: 0;">
-									<p style="font-family: sans-serif; font-size: 18px; color: #666;">"""+str(self.subscription.start_tid)+"""</p>
+								<td align="center" style="padding: 15px 15px 15px 15px; background: #ff6600; line-height: 0;">
+									<p style="font-family: sans-serif; font-size: 18px; color: #fff;">"""+str(self.subscription.start_tid)+"""</p>
 								</td>
 							</tr>
 						</table>
