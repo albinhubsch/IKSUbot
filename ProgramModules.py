@@ -25,17 +25,17 @@ logging.basicConfig(filename=fp,level=logging.INFO,format='%(asctime)s.%(msecs)d
 
 logging.getLogger("requests").setLevel(logging.WARNING)
 
-# 
+#
 class IKSU:
 
-	# 
+	#
 	def __init__(self):
 		pass
 
 	'''
 		checkServerTime
 
-		params: 
+		params:
 		return: True or false
 	'''
 	def checkServerTime(self):
@@ -46,12 +46,12 @@ class IKSU:
 			logging.info('IKSU server time: '+str(p))
 
 			if time.localtime().tm_isdst is 1:
-				if int(p.strftime('%H')) is 22:
+				if int(p.strftime('%H')) is 1:
 					return True
 				else:
 					return False
 			else:
-				if int(p.strftime('%H')) is 23:
+				if int(p.strftime('%H')) is 2:
 					return True
 				else:
 					return False
@@ -77,8 +77,10 @@ class IKSU:
 		tomorrow = now + datetime.timedelta(days=1)
 		end = now + datetime.timedelta(days=8)
 
+		# obj_classes[g_iw]:X
+
 		payload = {'fromDate': tomorrow.strftime('%Y-%m-%d'), 'thruDate': end.strftime('%Y-%m-%d'), 'fromTime':subscription.start_tid, 'thruTime':subscription.slut_tid, 'daysOfWeek[]':subscription.dag, 'locations[]':subscription.plats, 'objects[]':subscription.traningstyp, 'instructors[]':subscription.instruktor, 'func':'fres', 'search':'T', 'btn_submit':'x'}
-		
+
 		try:
 			r = requests.get(url, params=payload)
 
@@ -115,7 +117,7 @@ class IKSU:
 			else:
 				return False
 		except Exception, e:
-			logging.error(e)
+			logging.error('ProgramModules_120: ' + e)
 			return False
 
 	'''
@@ -130,7 +132,7 @@ class IKSU:
 
 	'''
 		bookClass
-		
+
 		params: class_id, user
 		return: email adress to send confrimation email
 	'''
@@ -141,40 +143,40 @@ class IKSU:
 
 		try:
 			# send booking request for subscription with session cookie
-			url = 'https://bokning.iksu.se/index.php?func=ar&id='+str(class_id)+'&location='+str(subscription.plats)+'&prev_f=rd'
+			url = 'https://bokning.iksu.se/index.php?func=ar&id='+str(class_id)+'&location='+str(subscription.plats)+'&rsv_det_id=&pref_f=la&usebfc=1'
 			r = session.get(url)
 
 			return user.email
 		except Exception, e:
-			logging.error(e)
+			logging.error('ProgramModules_151: ' + e)
 			return None
 
 	'''
 		confirmBooking
 
-		params: class_id, 
+		params: class_id,
 		return: True or False
 	'''
 	def confirmBooking(self, class_id, user, session = None):
-		
+
 		if session is None:
 			session = self._signIn(user)
 
 		r = session.get('https://bokning.iksu.se/index.php?func=mr')
-		
+
 		if soup.find(id=class_id):
 			return True
 		else:
 			return False
 
-# 
+#
 class Mail:
 
 	'''
 		__init__
 
 		params: to, subscription
-		return: 
+		return:
 	'''
 	def __init__(self, to, subscription):
 		self.receivers = to
@@ -187,28 +189,28 @@ class Mail:
 	'''
 		sendConfirmationEmail
 
-		params: 
-		return: 
+		params:
+		return:
 	'''
 	def sendConfirmationEmail(self):
 
 		days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
-		
+
 		# Define email addresses to use
 		addr_to   = self.receivers
 		addr_from = 'do_not_reply@iksubot.ahub.se'
-		 
+
 		# Define SMTP email server details
 		smtp_server = 'smtp.iksubot.ahub.se'
 		smtp_user   = self.auth['email']
 		smtp_pass   = self.auth['password']
-		 
+
 		# Construct email
 		msg = MIMEMultipart('alternative')
 		msg['To'] = ', '.join(self.receivers)
 		msg['From'] = addr_from
 		msg['Subject'] = 'IKSUbot booked a class, please verify!'
-		 
+
 		# Create the body of the message (a plain-text and an HTML version).
 		text = "You have been automatically singed up on a class at IKSU."
 		html = """\
@@ -258,20 +260,20 @@ class Mail:
 		</body>
 		</html>
 		"""
-		 
+
 		# Record the MIME types of both parts - text/plain and text/html.
 		part1 = MIMEText(text, 'plain')
 		part2 = MIMEText(html, 'html')
-		 
+
 		# Attach parts into message container.
 		# According to RFC 2046, the last part of a multipart message, in this case
 		# the HTML message, is best and preferred.
 		msg.attach(part1)
 		msg.attach(part2)
-		 
+
 		# Send the message via an SMTP server
 		s = smtplib.SMTP(smtp_server, 587)
 		s.login(smtp_user,smtp_pass)
 
-		s.sendmail(addr_from, addr_to, msg.as_string()) 
+		s.sendmail(addr_from, addr_to, msg.as_string())
 		s.quit()
